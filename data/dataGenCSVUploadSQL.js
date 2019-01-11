@@ -5,6 +5,7 @@ const connection = require('../server/db/index.js');
 const now = require("performance-now");
 const path = require("path");
 const dataPath = path.join(__dirname, '/data.csv');
+const fs = require('fs');
 
 const csvWriter = createCsvWriter({
   path: dataPath,
@@ -93,6 +94,12 @@ async function init() {
       } else if (results) {
         let end = now();
         console.log((end - start) / 1000 + " seconds");
+        fs.unlink(dataPath, (err) => {
+          if (err) {
+            console.log('Failed to delete CSV')
+          }
+          console.log('successfully deleted CSV');
+        });
       }
     });
 }

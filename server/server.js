@@ -1,15 +1,19 @@
-var express = require('express');
-var bodyParser = require('body-parser');
-var morgan = require('morgan');
-var db = require('./db'); //runs ./db. do not delete.
-var Router = require('./resources/Routers.js');
-var path = require('path');
-var cors = require('cors');
+const express = require('express');
+const bodyParser = require('body-parser');
+const morgan = require('morgan');
+const db = require('./db'); //runs ./db. do not delete.
+const Router = require('./resources/Routers.js');
+const path = require('path');
+const cors = require('cors');
+const compression = require('compression');
+
+
 
 // Create the Express application:
-var app = express();
+const app = express();
 
 // Attach middleware:
+app.use(compression());
 app.use(cors());
 app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, '../react-client/dist')));
