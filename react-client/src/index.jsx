@@ -23,7 +23,7 @@ class Carousel extends React.Component {
 
   populateImages() {
     axios
-      .get(`http://ec2-18-216-38-58.us-east-2.compute.amazonaws.com:3014/listing/${this.state.currentListing}`)
+      .get(`/listing/${this.state.currentListing}`)
       .then(response => {
         var responseImages = [];
         function populateImageArray() {

@@ -1,11 +1,10 @@
 
 var Sequelize = require("sequelize");
 var mysqlConfig = {
-  host: process.env.RDS_HOSTNAME,
-  user: process.env.RDS_USERNAME,
-  password: process.env.RDS_PASSWORD,
-  port: process.env.RDS_PORT,
-  database: process.env.RDS_DATABASE
+  host: process.env.RDS_HOSTNAME || 'localhost',
+  user: process.env.RDS_USERNAME || 'root',
+  password: process.env.RDS_PASSWORD || '',
+  database: process.env.RDS_DATABASE || 'thedb'
 }
 
 const sequelize = new Sequelize(
@@ -17,9 +16,6 @@ const sequelize = new Sequelize(
     port: mysqlConfig.port,
     logging: console.log,
     dialect: "mysql",
-    dialectOptions: {
-      ssl:'Amazon RDS'
-    },
     define: {
       timestamps: false
     }
