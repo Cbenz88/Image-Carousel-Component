@@ -1,6 +1,6 @@
 var express = require('express');
 var Router = express.Router();
-var Controller = require('./Controllers.js');
+var Controller = require('./ControllersSQL.js');
 
 Router.get('/:number', Controller.retrieveOne);
 
