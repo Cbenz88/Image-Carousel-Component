@@ -1,6 +1,48 @@
 const data = require('./newData.js');
 const now = require("performance-now");
-const Listing = require('../server/resources/ModelsMongo.js');
+const path = require("path");
+const dataPath = path.join(__dirname, '/data.csv');
+const fs = require('fs');
+const createCsvWriter = require('csv-writer').createObjectCsvWriter;
+const { exec } = require('child_process');
+
+const csvWriter = createCsvWriter({
+  path: dataPath,
+  header: [{
+      id: 'id',
+      title: 'id'
+    },
+    {
+      id: 'image1Url',
+      title: 'image1Url'
+    },
+    {
+      id: 'image2Url',
+      title: 'image2Url'
+    },
+    {
+      id: 'image3Url',
+      title: 'image3Url'
+    },
+    {
+      id: 'image4Url',
+      title: 'image4Url'
+    },
+    {
+      id: 'image5Url',
+      title: 'image5Url'
+    },
+    {
+      id: 'image6Url',
+      title: 'image6Url'
+    },
+    {
+      id: 'videoUrl',
+      title: 'videoUrl'
+    },
+
+  ]
+});
 
 const batchSize = 1000
 const batches = 10000
@@ -10,16 +52,14 @@ let currentBatch = 0
 const insertPugs = () => {
   let pugArray = null
   pugArray = createPugs(data, batchSize, index);
-  Listing.insertMany(pugArray, function (err, results) {
-    if (err) {
-      console.log('Error pushing to database', err)
-    } else if (results) {
+  csvWriter.writeRecords(pugArray)
+    .then(() => {
       if (currentBatch <= batches) {
         currentBatch++;
         insertPugs();
       }
-    }
-  })
+    })
+    .catch(err => console.log("Error writing CSV", err))
 }
 
 const createPugs = function (data, batchSize, index) {
@@ -40,11 +80,22 @@ const createPugs = function (data, batchSize, index) {
   return pugArray
 }
 
-
 async function init() {
   let start = now();
   await insertPugs();
-  let end = now();
-  console.log((end - start) / 1000 + " seconds");
+  await exec("mongoimport -d listings -c images --type csv --file data/data.csv --headerline", (err, stdout, stderr) => {
+    if (err) {
+      console.error(`exec error: ${err}`);
+      return;
+    }
+    let end = now();
+    console.log((end - start) / 1000 + " seconds");
+    fs.unlink(dataPath, (err) => {
+      if (err) {
+        console.log('Failed to delete CSV')
+      }
+      console.log('successfully deleted CSV');
+    });
+  });
 }
 init();
