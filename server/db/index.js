@@ -1,20 +1,10 @@
-var mysql = require("mysql");
-var mysqlConfig = {
-  host: process.env.RDS_HOSTNAME || 'localhost',
-  user: process.env.RDS_USERNAME || 'root',
-  password: process.env.RDS_PASSWORD || '',
-  database: 'thedb'
-};
+const url = "mongodb://localhost:27017/";
+const mongoose = require('mongoose');
 
-var connection = mysql.createConnection(mysqlConfig);
+mongoose.connect(url);
 
-connection.connect(err => {
-  if (err) {
-    console.error("error connecting: " + err.stack);
-    return;
-  }
-  console.log("Successfully connected to database.");
+const db = mongoose.connection;
 
-});
+db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 
-module.exports = connection;
+module.exports = db;
