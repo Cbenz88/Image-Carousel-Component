@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 const listingSchema = new mongoose.Schema({
-    id: {type: Number, unique: true},
+    _id: {type: Number, unique: true},
     image1Url: String,
     image2Url: String,
     image3Url: String,
@@ -11,6 +11,6 @@ const listingSchema = new mongoose.Schema({
     videoUrl: String
 });
 
-const Listing = mongoose.model('Listing', listingSchema);
+const Listing = mongoose.model('images', listingSchema);
 
 module.exports = Listing;

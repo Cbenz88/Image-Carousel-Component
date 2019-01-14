@@ -9,8 +9,8 @@ const { exec } = require('child_process');
 const csvWriter = createCsvWriter({
   path: dataPath,
   header: [{
-      id: 'id',
-      title: 'id'
+      id: '_id',
+      title: '_id'
     },
     {
       id: 'image1Url',
@@ -44,18 +44,20 @@ const csvWriter = createCsvWriter({
   ]
 });
 
-const batchSize = 1000
-const batches = 10000
+const batchSize = 10000
+const batches = 1000
 let index = 0
 let currentBatch = 0
 
 const insertPugs = () => {
   let pugArray = null
+
   pugArray = createPugs(data, batchSize, index);
   csvWriter.writeRecords(pugArray)
     .then(() => {
       if (currentBatch <= batches) {
         currentBatch++;
+
         insertPugs();
       }
     })
@@ -66,7 +68,7 @@ const createPugs = function (data, batchSize, index) {
   let pugArray = []
   for (let i = (index + (currentBatch * batchSize)); i < (batchSize + (currentBatch * batchSize)); i++) {
     let newPug = {
-      id: i,
+      _id: i,
       image1Url: data.pugPics[Math.floor(Math.random() * data.pugPics.length)],
       image2Url: data.pugPics[Math.floor(Math.random() * data.pugPics.length)],
       image3Url: data.pugPics[Math.floor(Math.random() * data.pugPics.length)],
