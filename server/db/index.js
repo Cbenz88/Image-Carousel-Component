@@ -1,9 +1,9 @@
 var mysql = require("mysql");
 var mysqlConfig = {
-  host: process.env.RDS_HOSTNAME || 'localhost',
-  user: process.env.RDS_USERNAME || 'root',
-  password: process.env.RDS_PASSWORD || '',
-  database: 'thedb'
+  host: process.env.SQL_HOSTNAME || 'localhost',
+  user: process.env.SQL_USERNAME || 'root',
+  password: process.env.SQL_PASSWORD || '',
+  database: process.env.SQL_DATABASE ||  'thedb'
 };
 
 var connection = mysql.createConnection(mysqlConfig);
