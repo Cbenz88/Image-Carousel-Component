@@ -1,12 +1,13 @@
 const data = require('./newData.js');
-('../server/resources/Models.js');
 const createCsvWriter = require('csv-writer').createObjectCsvWriter;
 const connection = require('../server/db/index.js');
 const now = require("performance-now");
 const path = require("path");
-const dataPath = path.join(__dirname, '/data.csv');
 const fs = require('fs');
+let csvs = 0;
+let dataPath = path.join(__dirname, '/data' + csvs + '.csv');
 
+async function init() {
 const csvWriter = createCsvWriter({
   path: dataPath,
   header: [{
@@ -47,9 +48,10 @@ const csvWriter = createCsvWriter({
 
 
 const batchSize = 1000
-const batches = 10000
-let index = 0
+const batches = 1000
+let index = (csvs * batches * batchSize)
 let currentBatch = 0
+console.log(index)
 
 const insertPugs = () => {
   let pugArray = null
@@ -66,7 +68,7 @@ const insertPugs = () => {
 
 const createPugs = function (data, batchSize, index) {
   let pugArray = []
-  for (let i = (index + (currentBatch * batchSize)); i < (batchSize + (currentBatch * batchSize)); i++) {
+  for (let i = (index + (currentBatch * batchSize)); i < (index + (batchSize + (currentBatch * batchSize))); i++) {
     let newPug = {
       id: i,
       image1Url: data.pugPics[Math.floor(Math.random() * data.pugPics.length)],
@@ -83,24 +85,43 @@ const createPugs = function (data, batchSize, index) {
 }
 
 
-async function init() {
+
+  
   let start = now();
-  await insertPugs();
+  await insertPugs()
   await connection.query(
     `LOAD DATA LOCAL INFILE ? INTO TABLE images FIELDS TERMINATED BY \',\' ENCLOSED BY \'"\' LINES TERMINATED BY \'\n\' IGNORE 1 ROWS;`, [dataPath],
     function (err, results) {
       if (err) {
-        console.log('Error uploading CSV')
-      } else if (results) {
-        let end = now();
-        console.log((end - start) / 1000 + " seconds");
+        console.log('Error uploading CSV', err)
+      } else if (results && csvs === 9) {
         fs.unlink(dataPath, (err) => {
-          if (err) {
-            console.log('Failed to delete CSV')
+          if(!err) {
+            console.log('successfully deleted CSV');
           }
-          console.log('successfully deleted CSV');
+        })
+      } else if (results && csvs < 9) {
+            let end = now();
+            console.log((end - start) / 1000 + " seconds");
+            fs.unlink(dataPath, (err) => {
+              if (!err) {
+                console.log('successfully deleted CSV');
+                csvs++
+                dataPath = path.join(__dirname, '/data' + csvs + '.csv');
+                init();
+              }
         });
-      }
-    });
-}
+      };
+    })
+};
+
 init();
+// async function tenCSVs() {
+//   for (var i = 0; i < 10; i++) {
+//     await insertPugs().then(() => {
+//       console.log('completed CSV ' + i)
+//     }).catch(err => console.log("Error writing CSV", err))
+//   }
+// }
+
+// tenCSVs();
