@@ -46,8 +46,8 @@ const csvWriter = createCsvWriter({
 });
 
 
-const batchSize = 10000
-const batches = 1000
+const batchSize = 100
+const batches = 100000
 let index = 0
 let currentBatch = 0
 
