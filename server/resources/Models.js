@@ -1,10 +1,10 @@
 
 var Sequelize = require("sequelize");
 var mysqlConfig = {
-  host: process.env.RDS_HOSTNAME || 'localhost',
-  user: process.env.RDS_USERNAME || 'root',
-  password: process.env.RDS_PASSWORD || '',
-  database: process.env.RDS_DATABASE || 'thedb'
+  host: process.env.SQL_HOSTNAME || 'localhost',
+  user: process.env.SQL_USERNAME || 'root',
+  password: process.env.SQL_PASSWORD || '',
+  database: process.env.SQL_DATABASE || 'thedb'
 }
 
 const sequelize = new Sequelize(

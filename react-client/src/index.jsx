@@ -26,6 +26,7 @@ class Carousel extends React.Component {
       .get(`/listing/${this.state.currentListing}`)
       .then(response => {
         var responseImages = [];
+        console.log(response)
         function populateImageArray() {
           if (response.data.image1Url !== null) {
             responseImages.push(response.data.image1Url);
