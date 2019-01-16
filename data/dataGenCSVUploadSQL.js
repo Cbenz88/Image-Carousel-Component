@@ -47,7 +47,7 @@ const csvWriter = createCsvWriter({
 });
 
 
-const batchSize = 100
+const batchSize = 500
 const batches = 1000
 let index = (csvs * batches * batchSize)
 let currentBatch = 0
@@ -94,13 +94,13 @@ const createPugs = function (data, batchSize, index) {
     function (err, results) {
       if (err) {
         console.log('Error uploading CSV', err)
-      } else if (results && csvs === 99) {
+      } else if (results && csvs === 19) {
         fs.unlink(dataPath, (err) => {
           if(!err) {
             console.log('successfully deleted CSV');
           }
         })
-      } else if (results && csvs < 99) {
+      } else if (results && csvs < 19) {
             let end = now();
             console.log((end - start) / 1000 + " seconds");
             fs.unlink(dataPath, (err) => {
@@ -108,7 +108,7 @@ const createPugs = function (data, batchSize, index) {
                 console.log('successfully deleted CSV');
                 csvs++
                 dataPath = path.join(__dirname, '/data' + csvs + '.csv');
-                init();
+                setTimeout(init, 1000);
               }
         });
       };
