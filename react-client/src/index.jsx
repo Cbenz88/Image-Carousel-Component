@@ -25,6 +25,7 @@ class Carousel extends React.Component {
     axios
       .get(`/listing/${this.state.currentListing}`)
       .then(response => {
+        console.log(response)
         var responseImages = [];
 
         function populateImageArray() {
