@@ -63,9 +63,6 @@ class Carousel extends React.Component {
   }
 
   getListing() {
-    //to get a random listing 1-100, not to be used in production
-    console.log(`${window.location.origin}/api/images/${this.state.currentListing}`)
-      console.log(window.location.pathname.split("/").slice(-1)[0])
     var listing = window.location.pathname.split("/").slice(-1)[0];
     return listing;
   }
