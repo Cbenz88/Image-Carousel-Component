@@ -3,10 +3,8 @@ var Listing = require('./Models.js');
 
 module.exports.retrieveOne = function(req, res) {
     var listingNumber = req.params.number;
-    
     Listing.findOne({where: {id: listingNumber}})
     .then((listing) => {
-        console.log(listing);
         res.send(listing);
     })
     .catch((err) => {

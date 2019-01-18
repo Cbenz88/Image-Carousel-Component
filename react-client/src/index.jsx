@@ -25,7 +25,6 @@ class Carousel extends React.Component {
     axios
       .get(`${window.location.origin}/api/images/${this.state.currentListing}`)
       .then(response => {
-        console.log(response)
         var responseImages = [];
 
         function populateImageArray() {
@@ -63,7 +62,8 @@ class Carousel extends React.Component {
   }
 
   getListing() {
-    var listing = window.location.pathname.split("/").slice(-1)[0];
+    let listing = document.location.pathname;
+    listing = parseInt(listing.match(/\d+/g));
     return listing;
   }
 
