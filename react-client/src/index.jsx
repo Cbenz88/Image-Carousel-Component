@@ -23,7 +23,7 @@ class Carousel extends React.Component {
 
   populateImages() {
     axios
-      .get(`/listing/${this.state.currentListing}`)
+      .get(`${window.location.origin}/api/images/${this.state.currentListing}`)
       .then(response => {
         console.log(response)
         var responseImages = [];
@@ -64,7 +64,7 @@ class Carousel extends React.Component {
 
   getListing() {
     //to get a random listing 1-100, not to be used in production
-    var listing = document.URL.split("?")[1];
+    var listing = window.location.pathname.split("/").slice(-1)[0];
     return listing;
   }
 

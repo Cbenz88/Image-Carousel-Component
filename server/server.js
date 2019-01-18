@@ -18,6 +18,6 @@ app.use(cors());
 app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, '../react-client/dist')));
 app.use(morgan('dev'));
-app.use('/listing', Router);
+app.use('api/images', Router);
 
 module.exports = app;
