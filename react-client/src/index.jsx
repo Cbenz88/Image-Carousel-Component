@@ -23,6 +23,8 @@ class Carousel extends React.Component {
 
   populateImages() {
     axios
+      console.log(`${window.location.origin}/api/images/${this.state.currentListing}`)
+      console.log(window.location.pathname.split("/").slice(-1)[0])
       .get(`${window.location.origin}/api/images/${this.state.currentListing}`)
       .then(response => {
         console.log(response)
