@@ -63,7 +63,7 @@ class Carousel extends React.Component {
 
   getListing() {
     let listing = document.location.pathname;
-    listing = parseInt(listing.match(/\d+/g));
+    listing = parseInt(listing.match(/\d+/g)[0]);
     return listing;
   }
 
