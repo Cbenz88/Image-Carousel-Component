@@ -108,7 +108,6 @@ const createPugs = function (data, batchSize, index) {
                 console.log('successfully deleted CSV');
                 csvs++
                 dataPath = path.join(__dirname, '/data' + csvs + '.csv');
-                setTimeout(init, 1000);
               }
         });
       };

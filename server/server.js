@@ -17,6 +17,7 @@ app.use(compression());
 app.use(cors());
 app.use(bodyParser.json());
 app.use('/:number', express.static(path.join(__dirname, '../react-client/dist')));
+app.use('/', express.static(path.join(__dirname, '../react-client/dist')));
 app.use(morgan('dev'));
 app.use('/api/images', Router);
 
