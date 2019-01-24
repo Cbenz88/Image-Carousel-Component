@@ -5,6 +5,7 @@ const client = require('../index.js');
 
 module.exports.cache = function(req, res, next) {
     var listingNumber = req.params.number;
+    console.log(client);
     client.get(listingNumber, function (err, data) {
         if (data != null) {
             res.send(respond(listingNumber, data));
