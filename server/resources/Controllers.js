@@ -5,7 +5,7 @@ const client = require('../server.js');
 
 module.exports.cache = function(req, res, next) {
     var listingNumber = req.params.number;
-    server.client.get(listingNumber, function (err, data) {
+    client.get(listingNumber, function (err, data) {
         if (data != null) {
             res.send(respond(listingNumber, data));
         } else {
