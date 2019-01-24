@@ -34,4 +34,4 @@ app.listen(port, () => {
     console.log(`Listening on port: ${port}`);
 });
 
-module.exports.client = client;
+module.exports = client;
