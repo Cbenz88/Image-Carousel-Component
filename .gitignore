@@ -2,7 +2,9 @@
 node_modules/
 # Private information
 server/config.js
+data/loadTest.yml
 # Bundling 
 react-client/dist/bundle.js
+react-client/dist/loaderio-8f7f4a5a849fbc6d0e2a809333bfbfd7.txt
 react-client/dist/bundle.js.map
 data/data.csv

@@ -28,6 +28,8 @@
     "react": "^15.6.2",
     "react-dom": "^15.6.2",
     "react-image-magnify": "^2.7.4",
+    "redis": "^2.8.0",
+    "request": "^2.88.0",
     "sequelize": "^4.42.0"
   },
   "devDependencies": {

@@ -6,7 +6,10 @@ const Router = require('./resources/Routers.js');
 const path = require('path');
 const cors = require('cors');
 const compression = require('compression');
-
+const redis = require('redis');
+const REDIS_PORT = process.env.REDIS_PORT;
+const REDIS_HOST = process.env.REDIS_HOST;
+const client = redis.createClient(REDIS_PORT, REDIS_HOST);
 const app = express();
 
 app.use(compression());
@@ -18,3 +21,4 @@ app.use(morgan('dev'));
 app.use('/api/images', Router);
 
 module.exports = app;
+module.exports = client
