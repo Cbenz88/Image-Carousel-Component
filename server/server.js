@@ -9,6 +9,7 @@ const compression = require('compression');
 const redis = require('redis');
 const REDIS_PORT = process.env.REDIS_PORT;
 const REDIS_HOST = process.env.REDIS_HOST;
+const port = process.env.PORT || 3014;
 
 const app = express();
 const client = redis.createClient(REDIS_PORT, REDIS_HOST);
@@ -21,5 +22,14 @@ app.use('/:number', express.static(path.join(__dirname, '../react-client/dist'))
 app.use(morgan('dev'));
 app.use('/api/images', Router);
 
-module.exports = app;
-module.exports = client
+client.on('connect', function() {
+    console.log('Redis client connected');
+});
+
+client.on('error', function (err) {
+    console.log('Issue connecting to Redis' + err);
+});
+
+app.listen(port, () => {
+    console.log(`Listening on port: ${port}`);
+});
