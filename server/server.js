@@ -9,8 +9,9 @@ const compression = require('compression');
 const redis = require('redis');
 const REDIS_PORT = process.env.REDIS_PORT;
 const REDIS_HOST = process.env.REDIS_HOST;
-const client = redis.createClient(REDIS_PORT, REDIS_HOST);
+
 const app = express();
+const client = redis.createClient(REDIS_PORT, REDIS_HOST);
 
 app.use(compression());
 app.use(cors());
