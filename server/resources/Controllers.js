@@ -17,7 +17,7 @@ module.exports.cache = function (req, res, next) {
     client.get(listingNumber, function (err, data) {
         if (data != null) {
             console.log(data)
-            res.send(listingNumber, data);
+            res.send(listingNumber, JSON.stringify(data));
         } else {
             next();
         }
