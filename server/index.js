@@ -1,14 +1,20 @@
-var app = require('./server.js');
-var port = process.env.PORT || 3014;
+const app = require('./server.js');
+const port = process.env.PORT || 3014;
+const redis = require('redis');
+const REDIS_PORT = process.env.REDIS_PORT;
+const REDIS_HOST = process.env.REDIS_HOST;
+const client = redis.createClient(REDIS_PORT, REDIS_HOST);
 
 app.listen(port, () => {
     console.log(`Listening on port: ${port}`);
 });
 
-app.client.on('connect', function() {
+client.on('connect', function() {
     console.log('Redis client connected');
 });
 
-app.client.on('error', function (err) {
+client.on('error', function (err) {
     console.log('Something went wrong ' + err);
 });
+
+module.exports = client;
