@@ -30,7 +30,8 @@
     "react-image-magnify": "^2.7.4",
     "redis": "^2.8.0",
     "request": "^2.88.0",
-    "sequelize": "^4.42.0"
+    "sequelize": "^4.42.0",
+    "superagent": "^4.1.0"
   },
   "devDependencies": {
     "babel-core": "^6.17.0",
