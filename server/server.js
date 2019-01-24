@@ -22,16 +22,7 @@ app.use('/:number', express.static(path.join(__dirname, '../react-client/dist'))
 app.use(morgan('dev'));
 app.use('/api/images', Router);
 
-client.on('connect', function() {
-    console.log('Redis client connected');
-});
-
-client.on('error', function (err) {
-    console.log('Issue connecting to Redis' + err);
-});
-
-app.listen(port, () => {
-    console.log(`Listening on port: ${port}`);
-});
-
-module.exports = client;
+module.exports = {
+    client: client,
+    app: app
+}
