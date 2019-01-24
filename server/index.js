@@ -1,5 +1,5 @@
-const app = require('./server.js');
-const client = require('./server.js')
+const app = require('./server.js').app;
+const client = require('./server.js').client;
 const port = process.env.PORT || 3014;
 
 app.listen(port, () => {
@@ -10,5 +10,5 @@ client.on('connect', function() {
 });
 
 client.on('error', function (err) {
-    console.log('Something went wrong ' + err);
+    console.log('Issue connecting to Redis' + err);
 });
