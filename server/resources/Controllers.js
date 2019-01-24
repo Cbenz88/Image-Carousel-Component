@@ -1,11 +1,11 @@
 const mysql = require('../db/index.js');
 const Listing = require('./Models.js');
 const request = require('superagent');
-const client = require('../server.js')
+const client = require('../server.js');
 
 module.exports.cache = function(req, res, next) {
     var listingNumber = req.params.number;
-    client.get(listingNumber, function (err, data) {
+    server.client.get(listingNumber, function (err, data) {
         if (data != null) {
             res.send(respond(listingNumber, data));
         } else {
