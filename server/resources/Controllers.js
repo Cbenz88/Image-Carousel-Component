@@ -16,8 +16,7 @@ module.exports.cache = function (req, res, next) {
     });
     client.get(listingNumber, function (err, data) {
         if (data != null) {
-            console.log(data)
-            res.send(listingNumber, JSON.stringify(data));
+            res.send(listingNumber, data);
         } else {
             next();
         }
@@ -32,8 +31,7 @@ module.exports.retrieveOne = function (req, res) {
             }
         })
         .then((listing) => {
-            client.setex(listingNumber, 6000, listing)
-            console.log(listing)
+            client.setex(listingNumber, 6000, JSON.stringify(listing))
             res.send(listing);
         })
         .catch((err) => {
