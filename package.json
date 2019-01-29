@@ -6,7 +6,7 @@
   "scripts": {
     "start": "nodemon server",
     "webpack": "webpack -p",
-    "redirect": "sudo iptables -t nat -A PREROUTING -i eth0 -p tcp --dport 80 -j REDIRECT --to-port 3000"
+    "redirect": "sudo iptables -t nat -A PREROUTING -i eth0 -p tcp --dport 80 -j REDIRECT --to-port 3014"
   },
   "author": "Jonathan Raitses",
   "private": true,
